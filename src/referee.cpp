@@ -3282,7 +3282,18 @@ HFORef::resetField()
         {
             if ( offense_pos_on_ball == offense_pos )
             {
-                (*p)->place( PVector( ball_x - .1, ball_y ) );
+                double offset = 10.0;
+                // double a_ang = drand ( -M_PI, M_PI );
+                // double b_ang = normalize_angle( a_ang + M_PI );
+                double b_ang = 0;
+                PVector pos PVector::fromPolar( offset, b_ang);
+                double pos_x = pos.x + ball_x;
+                double pos_y = pos.y + ball_y;
+
+                // (*p)->place( PVector( ball_x - .1, ball_y ) );
+                pos_x = std::min(std::max(x, -.1), half_pitch_length);
+                pos_y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
+                (*p)->place(PVector( pos_x, pos_y ) );
                 offense_pos++;
                 continue;
             }
