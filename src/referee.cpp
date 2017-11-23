@@ -3286,7 +3286,7 @@ HFORef::resetField()
                 // double a_ang = drand ( -M_PI, M_PI );
                 // double b_ang = normalize_angle( a_ang + M_PI );
                 double b_ang = 0;
-                PVector pos PVector::fromPolar( offset, b_ang);
+                PVector pos = PVector::fromPolar( offset, b_ang);
                 double pos_x = pos.x + ball_x;
                 double pos_y = pos.y + ball_y;
 
