@@ -3282,7 +3282,7 @@ HFORef::resetField()
         {
             if ( offense_pos_on_ball == offense_pos )
             {
-                double offset = 1.185;
+                double offset = 6.085;
                 double a_ang = drand ( -M_PI, M_PI );
                 double b_ang = normalize_angle( a_ang + M_PI );
                 PVector pos = PVector::fromPolar( offset, b_ang);
