@@ -3291,8 +3291,8 @@ HFORef::resetField()
 
                 x = std::min(std::max(x, -.1), half_pitch_length);
                 y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
-                // (*p)->place( PVector( ball_x - .1, ball_y ) );
-                (*p)->place(PVector( x, y ) );
+                (*p)->place( PVector( ball_x - .1, ball_y ) );
+                // (*p)->place(PVector( x, y ) );
                 offense_pos++;
                 continue;
             }
