@@ -3250,7 +3250,11 @@ HFORef::resetField()
     int offense_pos_on_ball = -1;
     int offense_count = 0;
     int hfo_offense_on_ball = ServerParam::instance().hfoOffenseOnBall();
+    double hfo_offense_ball_dist = ServerParam::instance().hfoOffenseBallDist();
+    bool hfo_beyond_kickable = ServerParam::instance().hfoBeyondKickable();
+
     const Stadium::PlayerCont::iterator end = M_stadium.players().end();
+
     if( hfo_offense_on_ball > 0 )
     {
         for ( Stadium::PlayerCont::iterator p = M_stadium.players().begin();
@@ -3282,7 +3286,24 @@ HFORef::resetField()
         {
             if ( offense_pos_on_ball == offense_pos )
             {
-                (*p)->place( PVector( ball_x - .1, ball_y ) );
+                if ( hfo_beyond_kickable )
+                {
+                    double offset = hfo_offense_ball_dist + ServerParam::instance().kickableArea(); // 5m was 6.085;
+                    double a_ang = drand ( -M_PI, M_PI );
+                    double b_ang = normalize_angle( a_ang + M_PI );
+                    PVector pos = PVector::fromPolar( offset, b_ang);
+                    x = pos.x + ball_x;
+                    y = pos.y + ball_y;
+
+                    x = std::min(std::max(x, -.1), half_pitch_length);
+                    y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
+
+                    (*p)->place(PVector( x, y ) );
+                } else
+                {
+                    (*p)->place( PVector( ball_x - .1, ball_y ) );
+                }
+
                 offense_pos++;
                 continue;
             }
